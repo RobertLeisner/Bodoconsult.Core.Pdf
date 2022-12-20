@@ -1,4 +1,6 @@
-﻿using MigraDoc.DocumentObjectModel;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+using MigraDoc.DocumentObjectModel;
 
 namespace Bodoconsult.Core.Pdf.Stylesets
 {

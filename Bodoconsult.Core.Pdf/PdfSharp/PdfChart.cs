@@ -1,6 +1,10 @@
+// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+
 using System;
 using System.Data;
 using System.Linq;
+using Bodoconsult.Core.Pdf.Extensions;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Shapes.Charts;
 
@@ -155,14 +159,26 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
         public void XSeries(DataTable dataTable, int columnId)
         {
             if (LegendLength > 15) LegendLength = 15;
-            
-            var query = from mycolumn in dataTable.AsEnumerable()
-                        where mycolumn.Field<string>(columnId) != "Gesamt"
-                        select mycolumn;
 
+            var rows = dataTable.EnumerateRows().Where(r => r.ItemArray[columnId].ToString() != "Gesamt").ToList();
 
-            var x = query.Select(i => i.Field<string>(columnId).Substring(0, LegendLength)).ToArray();
-            _xDimension = x.Length;
+            _xDimension = rows.Count;
+
+            var x = new string[_xDimension];
+
+            for (var index = 0; index < rows.Count; index++)
+            {
+                var row = rows[index];
+                x[index] = row[columnId].ToString().Substring(0, LegendLength);
+            }
+
+            //var query = from mycolumn in dataTable.AsEnumerable()
+            //            where mycolumn.Field<string>(columnId) != "Gesamt"
+            //            select mycolumn;
+
+            //var x = query.Select(i => i.Field<string>(columnId).Substring(0, LegendLength)).ToArray();
+
+            //_xDimension = x.Length;
 
             var xseries = _chart.XValues.AddXSeries();
             xseries.Add(x);

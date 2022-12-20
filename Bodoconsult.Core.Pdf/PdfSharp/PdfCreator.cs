@@ -1,3 +1,6 @@
+// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -56,8 +59,6 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
             // all styles and paragraphs that do not redefine the font.
             style.Font.Name = fontName;
             style.Font.Size = fontSize;
-
-
 
         }
 
@@ -485,6 +486,8 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
 
         private void AddFooterInternal(Section section)
         {
+            if (section == null) return;
+
             var paragraph = new Paragraph();
 
             var text = _footerText;
@@ -542,7 +545,9 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
 
         private void AddHeaderInternal(Section section)
         {
-            if (!string.IsNullOrEmpty(BackgroundImagePath))
+            if (section == null) return;
+
+            if (!string.IsNullOrEmpty(BackgroundImagePath) && File.Exists(BackgroundImagePath))
             {
                 var image = section.Headers.Primary.AddImage(BackgroundImagePath);
                 image.Height = "21cm";
@@ -551,9 +556,6 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
                 image.RelativeHorizontal = RelativeHorizontal.Page;
                 image.WrapFormat.Style = WrapStyle.Through;
             }
-
-
-
 
             var paragraph = new Paragraph
             {
@@ -759,35 +761,38 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
                 var css = "";
                 if (startCol == 2) css = r[0].ToString();
 
+                Color shadingColor; 
+
                 if (string.IsNullOrEmpty(css))
                 {
-                    row.Shading.Color = shadow ? BackColor : AlternateBackColor;
+                    shadingColor = shadow ? BackColor : AlternateBackColor;
                 }
                 else
                 {
                     switch (css.ToLower())
                     {
                         case "wr_cell_h1":
-                            row.Shading.Color = ShadingH1Color;
+                            shadingColor = ShadingH1Color;
                             break;
                         case "wr_cell_h2":
-                            row.Shading.Color = ShadingH2Color;
+                            shadingColor = ShadingH2Color;
                             break;
                         case "wr_cell_h3":
-                            row.Shading.Color = ShadingH3Color;
+                            shadingColor = ShadingH3Color;
                             break;
                         case "wr_cell_risk1":
-                            row.Shading.Color = ShadingRisk1Color;
+                            shadingColor = ShadingRisk1Color;
                             break;
                         case "wr_cell_risk2":
-                            row.Shading.Color = ShadingRisk2Color;
+                            shadingColor = ShadingRisk2Color;
                             break;
                         default:
-                            row.Shading.Color = shadow ? BackColor : AlternateBackColor;
+                            shadingColor = shadow ? BackColor : AlternateBackColor;
                             break;
                     }
                 }
 
+                row.Shading.Color = shadingColor;
 
                 for (var i = 0; i < table.Columns.Count; i++)
                 {
@@ -798,6 +803,7 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
                         var p = cell.AddParagraph(r[i + korr].ToString());
                         p.Format.Font.Size = style.Font.Size;
                         p.Format.Font.Name = style.Font.Name;
+                        //p.Format.Shading.Color = shadingColor;
                     }
                     else
                     {
@@ -809,6 +815,7 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
                                 var p = cell.AddParagraph(Convert.ToDateTime(z).ToString(format[i + korr]));
                                 p.Format.Font.Size = style.Font.Size;
                                 p.Format.Font.Name = style.Font.Name;
+                                //p.Format.Shading.Color = shadingColor;
                             }
                         }
                         else
@@ -819,6 +826,8 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
                                 var p = cell.AddParagraph(Convert.ToDouble(z).ToString(format[i + korr]));
                                 p.Format.Font.Size = style.Font.Size;
                                 p.Format.Font.Name = style.Font.Name;
+                               // p.Format.Shading.Color = shadingColor;
+
                             }
                         }
                     }
@@ -879,6 +888,7 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
                 frame.Height = Unit.FromCentimeter(6F);
                 frame.Width = Unit.FromCentimeter(width);
                 frame.Left = ShapePosition.Center;
+
                 CreateTable(dt, schleife, frame);
             }
         }
@@ -1080,35 +1090,38 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
                 var css = "";
                 if (startCol == 2) css = r[0].ToString();
 
+                Color shadingColor;
+
                 if (string.IsNullOrEmpty(css))
                 {
-                    row.Shading.Color = shadow ? BackColor : AlternateBackColor;
+                    shadingColor = shadow ? BackColor : AlternateBackColor;
                 }
                 else
                 {
                     switch (css.ToLower())
                     {
                         case "wr_cell_h1":
-                            row.Shading.Color = ShadingH1Color;
+                            shadingColor = ShadingH1Color;
                             break;
                         case "wr_cell_h2":
-                            row.Shading.Color = ShadingH2Color;
+                            shadingColor = ShadingH2Color;
                             break;
                         case "wr_cell_h3":
-                            row.Shading.Color = ShadingH3Color;
+                            shadingColor = ShadingH3Color;
                             break;
                         case "wr_cell_risk1":
-                            row.Shading.Color = ShadingRisk1Color;
+                            shadingColor = ShadingRisk1Color;
                             break;
                         case "wr_cell_risk2":
-                            row.Shading.Color = ShadingRisk2Color;
+                            shadingColor = ShadingRisk2Color;
                             break;
                         default:
-                            row.Shading.Color = shadow ? BackColor : AlternateBackColor;
+                            shadingColor = shadow ? BackColor : AlternateBackColor;
                             break;
                     }
                 }
 
+                row.Shading.Color = shadingColor;
 
                 for (var i = 0; i < table.Columns.Count; i++)
                 {
@@ -1122,6 +1135,7 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
                         p.Format.Font.Name = style.Font.Name;
                         p.Format.SpaceAfter = style.ParagraphFormat.SpaceAfter;
                         p.Format.SpaceBefore = style.ParagraphFormat.SpaceBefore;
+                        p.Format.Shading.Color = shadingColor;
                     }
                     else
                     {
@@ -1135,6 +1149,7 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
                                 p.Format.Font.Name = style.Font.Name;
                                 p.Format.SpaceAfter = style.ParagraphFormat.SpaceAfter;
                                 p.Format.SpaceBefore = style.ParagraphFormat.SpaceBefore;
+                                p.Format.Shading.Color = shadingColor;
                             }
                         }
                         else
@@ -1147,6 +1162,7 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
                                 p.Format.Font.Name = style.Font.Name;
                                 p.Format.SpaceAfter = style.ParagraphFormat.SpaceAfter;
                                 p.Format.SpaceBefore = style.ParagraphFormat.SpaceBefore;
+                                p.Format.Shading.Color = shadingColor;
                             }
                         }
                     }
@@ -1679,7 +1695,7 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
         public void TableSetContent(int column, int row, string content)
         {
 
-            content ??= "";
+            if (string.IsNullOrEmpty(content)) content = "";
 
             var cell = Table.Rows[row].Cells[column];
             cell.AddParagraph(content);
@@ -1827,7 +1843,7 @@ namespace Bodoconsult.Core.Pdf.PdfSharp
         /// <param name="html"></param>
         public void AddHtml(string html)
         {
-            html ??= "";
+            if (string.IsNullOrEmpty(html)) html = "";
             if (!html.Contains("<"))
             {
                 AddParagraph(html);

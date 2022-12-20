@@ -1,6 +1,7 @@
-﻿using System.Diagnostics;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+
 using System.IO;
-using System.Security.Cryptography;
 using Bodoconsult.Core.Pdf.PdfSharp;
 using Bodoconsult.Core.Pdf.Stylesets;
 using Bodoconsult.Core.Pdf.Test.Helpers;
@@ -16,11 +17,9 @@ namespace Bodoconsult.Core.Pdf.Test
         public void TestPdfCreatorWithDefaultStyleSheet()
         {
 
-            const string fileName = @"D:\tmp\pdf1.pdf";
-
+            string fileName = Path.Combine(TestHelper.TempPath, "pdf1.pdf");
+            
             CreateFile(fileName);
-
-
 
         }
 
@@ -28,7 +27,7 @@ namespace Bodoconsult.Core.Pdf.Test
         [Test]
         public void TestPdfCreatorWithDefaultStyleSheetLandScape()
         {
-            const string fileName = @"D:\tmp\pdf1quer.pdf";
+            string fileName = Path.Combine(TestHelper.TempPath, "pdf1quer.pdf");
             CreateFile(fileName, true);
         }
 
@@ -36,11 +35,11 @@ namespace Bodoconsult.Core.Pdf.Test
         public void TestPdfCreatorWithDefaultStyleSheet2Files()
         {
 
-            const string fileName1 = @"D:\tmp\pdf1.pdf";
+            string fileName1 = Path.Combine(TestHelper.TempPath, "pdf1.pdf");
 
             CreateFile(fileName1);
 
-            const string fileName2 = @"D:\tmp\pdf2.pdf";
+            string fileName2 = Path.Combine(TestHelper.TempPath, "pdf2.pdf");
 
             CreateFile(fileName2);
 
@@ -89,6 +88,7 @@ namespace Bodoconsult.Core.Pdf.Test
             pdf.AddTableFrame(TestHelper.GetDataTable(), "Tabellenüberschrift Frame", "NoHeading1", null,
                 "Details", pdf.Width / 2);
 
+            pdf.AddParagraph(TestHelper.Masstext1, "Normal");
 
             pdf.AddParagraph("Überschrift 2", "Heading1");
             pdf.AddParagraph(TestHelper.Masstext1, "Normal");
@@ -96,7 +96,7 @@ namespace Bodoconsult.Core.Pdf.Test
             pdf.AddParagraph("Überschrift 2-1", "Heading2");
             pdf.AddParagraph(TestHelper.Masstext1, "Normal");
 
-            pdf.AddImage(@"\\192.168.10.121\softwarestore$\Logos\Intern\logo_bre.png", 150, 50);
+            pdf.AddImage(@"\\192.168.10.121\softwarestore$\Logos\Intern\logo_bre.png", 5, 1.5);
 
             pdf.AddParagraph("Überschrift 2-2", "Heading2");
             pdf.AddParagraph(TestHelper.Masstext1, "Normal");

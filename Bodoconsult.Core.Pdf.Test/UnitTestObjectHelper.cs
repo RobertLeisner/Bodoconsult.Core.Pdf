@@ -1,4 +1,7 @@
-﻿using Bodoconsult.Core.Pdf.Helpers;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+
+using Bodoconsult.Core.Pdf.Helpers;
 using MigraDoc.DocumentObjectModel;
 using NUnit.Framework;
 

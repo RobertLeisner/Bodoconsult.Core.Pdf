@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿// Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH. All rights reserved.
+
+
+using System.IO;
 using System.Reflection;
 
 namespace Bodoconsult.Core.Pdf.Test.Helpers

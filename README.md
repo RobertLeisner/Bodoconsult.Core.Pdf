@@ -1,6 +1,6 @@
 # What does the library
 
-Bodoconsult.Core.Pdf library simplifies the usage of the cool PDfSharp and Migradoc libraries (<https://http://pdfsharp.net/>) to create PDF files. 
+Bodoconsult.Core.Pdf library simplifies the usage of the cool PDfSharp and Migradoc libraries <https://http://pdfsharp.net/> to create PDF files. 
 It uses the Nuget package PdfSharp.MigraDoc.netstandard 1.3.1. 
 For more information on this package see <https://www.nuget.org/packages/PdfSharp.MigraDoc.netstandard/1.3.1>.
 

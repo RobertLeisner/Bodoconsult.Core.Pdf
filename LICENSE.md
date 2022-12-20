@@ -1,6 +1,6 @@
 ﻿# The MIT License (MIT) for Bodoconsult.Core.Pdf
 
-Copyright (c) 2015 - 2020 Bodoconsult EDV-Dienstleistungen GmbH, Vaterstetten (Germany)
+Copyright (c) Bodoconsult EDV-Dienstleistungen GmbH, Vaterstetten (Germany)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,9 @@ SOFTWARE.
 
 ## PdfSharp.MigraDoc.netstandard 1.3.1
 
-<https://www.nuget.org/packages/PdfSharp.MigraDoc.netstandard/1.3.1/license>
+Package-Url: <https://www.nuget.org/packages/PdfSharp.MigraDoc.netstandard>
+
+Licence-Url: <https://www.nuget.org/packages/PdfSharp.MigraDoc.netstandard/1.3.1/license>
 
 MIT License
 
